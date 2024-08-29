@@ -38,6 +38,10 @@ Migrate database
 
 > knex migrate:latest
 
+Seed database
+
+> knex seed:run
+
 Run Application
 
 > npm run dev

@@ -47,6 +47,38 @@ const login = async(req, res) => {
   }
 }
 
+const register  = async(req, res) => {
+  try {
+    const {
+      username,
+      email,
+      password,
+      phone_number
+    } = req.body;
+    const password_encrypt = bcryptjs.hashSync(password, 10);
+    const user = await User.query().insert({
+      username,
+      email,
+      password: password_encrypt,
+      phone_number
+    });
+    const token = jwt.sign(user.toJSON(), process.env.JWT_SECRET, {
+      expiresIn: "6h"
+    });
+    user.token = token;
+    res.status(201).json({
+      message: "Register User Succesfully",
+      data: user
+    })
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({
+      message: "Internal Server Error!",
+      data: null
+    })
+  }
+}
 module.exports = {
-  login
+  login,
+  register
 }

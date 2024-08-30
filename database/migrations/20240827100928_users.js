@@ -8,8 +8,8 @@ exports.up = function(knex) {
     table.string("email");
     table.string("username");
     table.string("password");
-    table.string("role");
-    table.integer("phone_number").nullable();
+    table.string("role").nullable();
+    table.string("phone_number").nullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   })
